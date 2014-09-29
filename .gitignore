@@ -8,7 +8,6 @@ dump.sql
 nohup.out
 logs
 venv
-upload
 
 bower_components
 node_modules
