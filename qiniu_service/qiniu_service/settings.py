@@ -24,8 +24,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = False 
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -81,3 +80,62 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'dusable_existing_loggers': True,
+    'formatters': {
+        'normal': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(module)s %(message)s'
+            }
+    },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'django': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 5,
+            'filename': 'logs/django.log',
+            'formatter': 'normal'
+        },
+        'minisite': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 5,
+            'filename': 'logs/minisite.log',
+            'formatter': 'normal'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['django'],
+            'propagate': False,
+            'level': 'DEBUG'
+        },
+        'mq': {
+            'handlers': ['console', 'minisite'],
+            'propagate': False,
+            'level': 'DEBUG'
+        },
+        '': {
+            'handlers': ['minisite'],
+            'level': 'DEBUG'
+        }
+    }
+}
+
