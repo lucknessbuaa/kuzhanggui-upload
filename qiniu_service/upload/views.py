@@ -11,13 +11,14 @@ class Qiniu_Setting(object):
     qiniu.conf.SECRET_KEY = 'RNB_fJHHlIEPT1W1gHarFf22VDBNj5qeo-34SS5N'
     scope = 'jiaoyin-picture'
     policy = qiniu.rs.PutPolicy(scope)
-    uptoken = policy.token()
 
 class DocumentForm(forms.Form):
     docfile = forms.FileField(label='lb')
 
 def upload(data, dsc_key):
-    ret, err = qiniu.io.put(Qiniu_Setting.uptoken, dsc_key, data)
+    uptoken = Qiniu_Setting.policy.token()
+
+    ret, err = qiniu.io.put(uptoken, dsc_key, data)
     if err is not None:
         print err
         return None
