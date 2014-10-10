@@ -4,7 +4,7 @@ debug:
 	./manage.py runserver $(port)
 
 start-uwsgi:
-	uwsgi --socket 127.0.0.1:$(port) \	
+	uwsgi --socket 127.0.0.1:$(port) \
 		--chdir $(shell pwd) \
 		--wsgi-file qiniu_service/wsgi.py  \
 		--master \

@@ -2,3 +2,4 @@ django==1.7
 uwsgi
 
 qiniu
+pysqlite
