@@ -1,7 +1,10 @@
-PORT:=6855
+port:=6855
+
+debug:
+	./manage.py runserver $(port)
 
 start-uwsgi:
-	uwsgi --socket 127.0.0.1:$(PORT) \	
+	uwsgi --socket 127.0.0.1:$(port) \	
 		--chdir $(shell pwd) \
 		--wsgi-file qiniu_service/wsgi.py  \
 		--master \
